@@ -1,0 +1,14 @@
+net: "DR2_stage2.prototxt"
+test_iter: 556
+test_interval: 500
+base_lr: 1e-5
+momentum: 0.9
+weight_decay: 0.0001
+lr_policy: "fixed"
+display: 100
+max_iter: 100000
+snapshot: 500
+snapshot_prefix: "model/DR2_stage2"
+solver_mode: GPU
+
+
