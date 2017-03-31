@@ -1,0 +1,40 @@
+1、System Requirements:
+This software has been tested on Linux 64-bit system.
+a.[Caffe](http://caffe.berkeleyvision.org/) including matcaffe
+b.MATLAB
+
+2、Reconstruction using ReconNet
+The pre-trained models for measurement rates of 0.25, 0.1, 0.04 and 0.01 and the corresponding measurement matrices are 
+provided in the ./DR2/test/caffemodels and ./DR2/test/phi directories respectively. ./DR2/test_images contains the test 
+images (downloaded from two sources: http://dsp.rice.edu/software/DAMP-toolbox and 
+http://see.xidian.edu.cn/faculty/wsdong/NLR_Exps.htm). The reconstructed images for the different measurement rates are 
+provided in ./DR2/test/reconstruction_results.
+
+To reproduce the results, first select a measurement rate by editing ./DR2/test/test_everything.m accordingly and 
+"run test_everything.m"
+
+3、Training models:
+a.The network definition and parameters of the initial random weights of the network are provided in ./DR2/train/ folder.
+DR2_stage1.prototxt and DR2_stage1_solver.prototxt are the files for training fully-connected layer.
+DR2_stage2.prototxt and DR2_stage2_solver.prototxt are the files for training DR2-Net.
+
+b. Run generate_train.m from ./DR2/train/ directory in MATLAB to sample the image patches of size 33 by 33 which act as 
+the training labels, and the corresponding  random Gaussian measurements (using a measurement matrix in ./DR2/phi directory) 
+which act as training inputs for the network. The training inputs and labels will be saved in hdf5 format in ./DR2/train/train.h5. 
+Similarly run ./DR2/train/generate_test.m to generate the validation set which will be saved in test.h5.
+
+c.Running train_stage1.sh to accomplish the first stage. The trained model for stage1 is used to train stage2:train_stage2.sh. 
+
+4、Acknowledgements:
+  Our training code is inspired by the ReconNet: https://github.com/KuldeepKulkarni/ReconNet
+  
+5、Contact:  Hantao Yao (yaohantao@ict.ac.cn)
+
+6、Citation
+If you are using this code, please cite the following paper.
+@article{yao2017dr,
+  title={DR $\^{}$\{$2$\}$ $-Net: Deep Residual Reconstruction Network for Image Compressive Sensing},
+  author={Yao, Hantao and Dai, Feng and Zhang, Dongming and Ma, Yike and Zhang, Shiliang and Zhang, Yongdong},
+  journal={arXiv preprint arXiv:1702.05743},
+  year={2017}
+}
